@@ -1,9 +1,8 @@
 # .org Devhub VVV
 
-This is a varying vagrant vagrants site that sets up the developer.wordpress.org devhub site.
+This is a varying vagrant vagrants site that sets up the [developer.wordpress.org](developer.wordpress.org) devhub site.
 
 ## Instructions
-
 
 1. Clone this repository into a sub-folder in your www folder
 2. Re-provision your VVV
