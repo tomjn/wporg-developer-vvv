@@ -63,7 +63,7 @@ if [[ ! -f htdocs/wp-load.php ]]; then
 	cd htdocs
 	wp core download
 	wp core config --dbname=wpdevhub --dbuser=wp --dbpass=wp --extra-php <<PHP
-	define( 'WPORGPATH', __DIR__ . '/wp-content/themes/' );
+	#define( 'WPORGPATH', __DIR__ . '/wp-content/themes/' );
 	PHP
 	wp core install --url="http://developer.wordpress.dev" --title="WordPress Local Developer Hub" --admin_user="admin" --admin_password="password" --admin_email="example@example.com"
 	cd ..
