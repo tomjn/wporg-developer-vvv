@@ -55,10 +55,17 @@ for KNOWN_HOST in $(cat "ssh/known_hosts"); do
 	fi
 done
 
+# Make a database, if we don't already have one
+mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL PRIVILEGES ON $DB_NAME.* TO wp@localhost IDENTIFIED BY 'wp';"
+
 # If there's no WordPress, then assume we're starting from scratch
 if [[ ! -f htdocs/wp-load.php ]]; then
 	cd htdocs
 	wp core download
+	wp core config --dbname=wpdevhub --dbuser=wp --dbpass=wp --extra-php <<PHP
+	define( 'WPORGPATH', __DIR__ . '/wp-content/themes/' );
+	PHP
+	wp core install --url="http://developer.wordpress.dev" --title="WordPress Local Developer Hub" --admin_user="admin" --admin_password="password" --admin_email="example@example.com"
 	cd ..
 	git clone git@github.com:rmccue/WP-Parser.git htdocs/wp-content/plugins/wp-parser
 	git clone git@github.com:Rarst/wporg-developer.git htdocs/wp-content/themes/wporg-developer
@@ -66,10 +73,13 @@ if [[ ! -f htdocs/wp-load.php ]]; then
 	cd htdocs/wp-content/plugins/wp-parser
 	composer install
 	cd -
+	cd htdocs
+	wp plugin activate wp-parser
+	wp plugin activate handbook
+	wp theme activate wporg-developer
+	cd ..
 fi
 
-# Make a database, if we don't already have one
-mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL PRIVILEGES ON $DB_NAME.* TO wp@localhost IDENTIFIED BY 'wp';"
 
 # The Vagrant site setup script will restart Nginx for us
 
