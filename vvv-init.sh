@@ -60,9 +60,12 @@ if [[ ! -f htdocs/wp-load.php ]]; then
 	cd htdocs
 	wp core download
 	cd ..
-	git clone git@github.com:Rarst/wporg-developer.git htdocs/wp-content/plugins/wporg-developer
+	git clone git@github.com:rmccue/WP-Parser.git htdocs/wp-content/plugins/wp-parser
 	git clone git@github.com:Rarst/wporg-developer.git htdocs/wp-content/themes/wporg-developer
 	svn co https://meta.svn.wordpress.org/sites/trunk/wordpress.org/public_html/wp-content/plugins/handbook/ htdocs/wp-content/plugins/handbook
+	cd htdocs/wp-content/plugins/wp-parser
+	composer install
+	cd -
 fi
 
 # Make a database, if we don't already have one
