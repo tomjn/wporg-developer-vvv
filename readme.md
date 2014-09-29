@@ -1,6 +1,6 @@
 # .org Devhub VVV
 
-This is a varying vagrant vagrants site that sets up the [developer.wordpress.org](developer.wordpress.org) devhub site.
+This is a varying vagrant vagrants site that sets up the [http://developer.wordpress.org](developer.wordpress.org) devhub site.
 
 ## Instructions
 
