@@ -62,9 +62,10 @@ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT 
 if [[ ! -f htdocs/wp-load.php ]]; then
 	cd htdocs
 	wp core download
-	wp core config --dbname=wpdevhub --dbuser=wp --dbpass=wp --extra-php <<PHP
+	extra_php="
 	#define( 'WPORGPATH', __DIR__ . '/wp-content/themes/' );
-	PHP
+	"
+	wp core config --dbname=wpdevhub --dbuser=wp --dbpass=wp --extra-php "$extra-php"
 	wp core install --url="http://developer.wordpress.dev" --title="WordPress Local Developer Hub" --admin_user="admin" --admin_password="password" --admin_email="example@example.com"
 	cd ..
 	git clone git@github.com:rmccue/WP-Parser.git htdocs/wp-content/plugins/wp-parser
